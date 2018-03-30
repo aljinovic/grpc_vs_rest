@@ -1,0 +1,46 @@
+// python -m grpc_tools.protoc -I protos --python_out=./ --grpc_python_out=./ ./Users.proto
+
+syntax = "proto3";
+
+package users;
+
+service Users {
+    rpc get (UsersRequest) returns (UsersReply) {}
+    rpc get_stream (UsersRequest) returns (stream UsersReply) {}
+}
+
+message UsersRequest {
+    string match = 1;
+}
+
+message UsersReply {
+    int32 total = 1;
+    repeated User users = 2;
+}
+
+message User {
+    int32 id = 1;
+    string name = 2;
+    string surname = 3;
+    string phone = 4;
+    string created = 5;
+    bool active = 6;
+    float lat = 7;
+    float lng = 8;
+    string description = 9;
+    Country country = 10;
+    repeated Payment payments = 11;
+}
+
+message Country {
+    string name = 1;
+    string currency = 2;
+    string code = 3;
+}
+
+message Payment {
+    string created = 1;
+    int32 amount = 2;
+}
+
+
